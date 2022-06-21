@@ -1,0 +1,52 @@
+<idea-plugin>
+    <id>com.lcl100.upload.file</id>
+    <name>Upload File</name>
+    <version>1.0</version>
+    <vendor email="2961316542@qq.com" url="https://github.com/lcl100/">lcl100</vendor>
+
+    <description>
+        <![CDATA[
+      Description:
+      <ul>
+        <li>Allows you to upload selected local files or directories to a remote server.</li>
+        <li>允许你上传选中的本地文件或目录到远程服务器。</li>
+      </ul>
+    ]]>
+    </description>
+
+    <change-notes>
+        <![CDATA[
+        <ul>
+          <li>1.0 Init commit.</li>
+        </ul>
+    ]]>
+    </change-notes>
+
+    <idea-version since-build="212.0"/>
+
+    <depends>com.intellij.modules.platform</depends>
+    <!-- 引入它们，否则找不到 com.intellij.psi -->
+    <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.java</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationConfigurable parentId="tools" instance="config.SSHSettingsConfigurable"
+                                 id="oAppSettingsConfigurable"
+                                 displayName="SSH Upload Setting"/>
+        <applicationService serviceImplementation="model.SSHSettingsState"/>
+    </extensions>
+
+    <actions>
+        <!-- 上传文件或目录 -->
+        <action id="file-action" class="action.UploadFileAction" text="Upload File Or Directory"
+                description="Upload local file or directory to remote server.">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="first"/>
+        </action>
+        <!-- 上传 class 文件 -->
+        <action id="upload-class-action" class="action.UploadClassAction" text="Upload Class File"
+                description="Upload java class file.">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="after" relative-to-action="file-action"/>
+        </action>
+    </actions>
+
+</idea-plugin>
